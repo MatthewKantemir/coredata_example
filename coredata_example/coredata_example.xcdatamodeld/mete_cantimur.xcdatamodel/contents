@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10169.1" systemVersion="15E65" minimumToolsVersion="Automatic">
+    <entity name="ItemBaseEntity" representedClassName=".ItemBaseEntity" isAbstract="YES" syncable="YES">
+        <attribute name="dateCreated" attributeType="Date" syncable="YES"/>
+        <attribute name="dateModified" optional="YES" attributeType="Date" syncable="YES"/>
+    </entity>
+    <entity name="ProductCategoriesEntity" representedClassName=".ProductCategoriesEntity" parentEntity="ItemBaseEntity" syncable="YES">
+        <attribute name="categoryDesc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="categoryName" attributeType="String" syncable="YES"/>
+        <attribute name="categoryState" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="productList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ProductsEntity" inverseName="category" inverseEntity="ProductsEntity" syncable="YES"/>
+    </entity>
+    <entity name="ProductsEntity" representedClassName=".ProductsEntity" parentEntity="ItemBaseEntity" syncable="YES">
+        <attribute name="productDesc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="productImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="productModel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="productName" attributeType="String" syncable="YES"/>
+        <attribute name="productState" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="quantity" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="unitPrice" attributeType="Double" defaultValueString="0" syncable="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProductCategoriesEntity" inverseName="productList" inverseEntity="ProductCategoriesEntity" syncable="YES"/>
+        <relationship name="purchaseList" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PurchaseEntity" inverseName="product" inverseEntity="PurchaseEntity" syncable="YES"/>
+    </entity>
+    <entity name="PurchaseEntity" representedClassName=".PurchaseEntity" parentEntity="ItemBaseEntity" syncable="YES">
+        <attribute name="quantity" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProductsEntity" inverseName="purchaseList" inverseEntity="ProductsEntity" syncable="YES"/>
+        <relationship name="purchaser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UsersEntity" inverseName="purchaseList" inverseEntity="UsersEntity" syncable="YES"/>
+    </entity>
+    <entity name="UsersEntity" representedClassName=".UsersEntity" parentEntity="ItemBaseEntity" syncable="YES">
+        <attribute name="email" attributeType="String" syncable="YES"/>
+        <attribute name="password" attributeType="String" syncable="YES"/>
+        <attribute name="profileImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="userName" attributeType="String" syncable="YES"/>
+        <attribute name="userState" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="userType" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="purchaseList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PurchaseEntity" inverseName="purchaser" inverseEntity="PurchaseEntity" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="ItemBaseEntity" positionX="72" positionY="-270" width="128" height="75"/>
+        <element name="ProductCategoriesEntity" positionX="-117" positionY="104" width="162" height="105"/>
+        <element name="ProductsEntity" positionX="376" positionY="-72" width="128" height="180"/>
+        <element name="PurchaseEntity" positionX="117" positionY="-106" width="128" height="90"/>
+        <element name="UsersEntity" positionX="-117" positionY="-166" width="128" height="150"/>
+    </elements>
+</model>
